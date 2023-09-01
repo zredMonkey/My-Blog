@@ -103,5 +103,5 @@ theme: butterfly
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: https://github.com/zredMonkey/zredMonkey.github.io.git
+  repo: git@github.com:zredMonkey/zredMonkey.github.io.git
   branch: master
