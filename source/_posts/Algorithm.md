@@ -6,6 +6,27 @@ tags:
 - 动态规划
 - 贪心算法
 - 回溯算法
+categories:
+- 算法
+- 动态规划
+- 回溯算法
+top_img: /img/suanfa.png
+cover: /img/suanfa.png
+keywords: "Algorithm"
+description: "算法（Algorithm）是指解题方案的准确而完整的描述，是一系列解决问题的清晰指令，算法代表着用系统的方法描述解决问题的策略机制。也就是说，能够对一定规范的输入，在有限时间内获得所要求的输出。"
+post_meta:
+  page:
+    date_type: both
+    date_format: relative
+    categories: true
+    tags: true
+    label: true
+  post:
+    date_type: both 
+    date_format: relative
+    categories: true 
+    tags: true
+    label: true
 ---
 # 一、动态规划
 
@@ -51,7 +72,7 @@ tags:
 
 7. **可选的优化：** 根据具体情况，你还可以对算法进行进一步优化，例如利用滚动数组、状态压缩等技巧来减少空间复杂度。
 
-## 1.最长递增子序列
+## 最长递增子序列
 
 **题目：**
 给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。
@@ -118,7 +139,7 @@ public class LongestIncreasingSubsequence {
 ```
 
 
-## 2.正则表达式匹配
+## 正则表达式匹配
 
 
 **题目：**
@@ -236,7 +257,7 @@ public class RegularExpressionMatching {
 4. 填充dp表格：根据字符匹配和'*'的特性，更新`dp[i][j]`的值。
 5. 最终结：`dp[m][n]`表示s的全部字符和p的全部字符是否匹配。
 
-## 3.最长回文子串
+## 最长回文子串
 回文串是指正着读和倒着读都一样的字符串。例如，"aba"、"abba"和"level"都是回文串。
 
 **题目：**
@@ -320,7 +341,7 @@ public class LongestPalindromeSubstring {
 5. 最终结果：根据`dp`数组的信息，找到最长回文子串的起始位置和长度，然后通过`substring`方法获取最长回文子串。
 注意：虽然动态规划是一种解决最长回文子串问题的方法，但还有其他更优秀的算法，如Manacher算法等，可以在时间复杂度上做更多优化。
 
-## 4.回文子串个数
+## 回文子串个数
 **题目：**
 给定一个字符串 s ，请计算这个字符串中有多少个回文子字符串。
 具有不同开始位置或结束位置的子串，即使是由相同的字符组成，也会被视作不同的子串。
@@ -393,7 +414,7 @@ public class CountPalindromicSubstrings {
 5. 最终结果：返回`count`，即回文子串的个数。
 
 
-## 5.背包问题
+## 背包问题
 背包问题是动态规划中的经典问题之一。给定一组物品，每个物品有对应的重量和价值，背包有限的承载重量，要求在不超过背包承载重量的前提下，选择物品放入背包，使得背包中物品的总价值最大。
 
 **解题思路：**
@@ -459,7 +480,7 @@ Maximum value: 7
 Process finished with exit code 0
 ```
 
-## 6.最长公共子序列（Longest Common Subsequence）问题
+## 最长公共子序列（Longest Common Subsequence）问题
 
 最长公共子序列（Longest Common Subsequence，简称LCS）问题是一种经典的动态规划问题，用于找到两个序列中最长的公共子序列的长度。
 
@@ -517,7 +538,7 @@ Process finished with exit code 0
 ```
 
 
-## 7. 打家劫舍（House Robber）问题：如不相邻的房屋偷窃的最大金额。
+## 打家劫舍（House Robber）问题：如不相邻的房屋偷窃的最大金额。
 **题目：**
 
 一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响小偷偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。
@@ -645,7 +666,7 @@ void backtrack(路径， 选择列表) {
 }
 ```
 
-## 1.全排列
+## 全排列
 全排列（Permutations）问题是一个经典的回溯算法问题。给定一个不含重复元素的整数数组，要求返回所有可能的排列方式。
 
 **解题思路如下：**
@@ -771,7 +792,7 @@ Process finished with exit code 0
 1. 跳跃游戏 II（Jump Game II）：给定一个非负整数数组，每个元素代表在该位置可以跳跃的最大步数，求最少需要几步能够到达数组的最后一个位置。
 
 
-## 1.零钱兑换（Coin Change）：给定不同面额的硬币和一个总金额，求出使用最少的硬币数量凑成总金额。
+## 零钱兑换（Coin Change）：给定不同面额的硬币和一个总金额，求出使用最少的硬币数量凑成总金额。
 
 在零钱兑换问题中，贪心算法并不是最优的解决方案，因为不是所有情况下都可以通过贪心选择得到最少硬币数量。但是，为了展示贪心算法的思想，我们可以尝试使用贪心算法解决一部分情况。
 
