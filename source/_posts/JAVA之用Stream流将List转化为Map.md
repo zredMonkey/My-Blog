@@ -1,17 +1,16 @@
 ---
 title: JAVA之用Stream流将List转化为Map
-date: 2019-02-01 12:50:18
 tags:
-- Stream流
-- JDK 1.8
-- List转化为Map
+  - Stream流
+  - JDK 1.8
+  - List转化为Map
 categories:
-- Stream流
-- List转化为Map
+  - Stream流
+  - List转化为Map
 top_img: /img/java_stream.jpg
 cover: /img/java_stream.jpg
-keywords: "Stream流"
-description: "JAVA之用Stream流将List转化为Map的方式"
+keywords: Stream流
+description: JAVA之用Stream流将List转化为Map的方式
 post_meta:
   page:
     date_type: both
@@ -20,11 +19,13 @@ post_meta:
     tags: true
     label: true
   post:
-    date_type: both 
+    date_type: both
     date_format: relative
-    categories: true 
+    categories: true
     tags: true
     label: true
+abbrlink: 211807b3
+date: 2019-02-01 12:50:18
 ---
 # 1、**JDK1.8流方式**
 **用户类**

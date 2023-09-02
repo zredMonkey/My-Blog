@@ -1,19 +1,19 @@
 ---
 title: Algorithm
-date: 2023-08-01 12:27:18
 tags:
-- 算法
-- 动态规划
-- 贪心算法
-- 回溯算法
+  - 算法
+  - 动态规划
+  - 贪心算法
+  - 回溯算法
 categories:
-- 算法
-- 动态规划
-- 回溯算法
+  - 算法
+  - 动态规划
+  - 回溯算法
 top_img: /img/suanfa.png
 cover: /img/suanfa.png
-keywords: "Algorithm"
-description: "算法（Algorithm）是指解题方案的准确而完整的描述，是一系列解决问题的清晰指令，算法代表着用系统的方法描述解决问题的策略机制。也就是说，能够对一定规范的输入，在有限时间内获得所要求的输出。"
+keywords: Algorithm
+description: >-
+  算法（Algorithm）是指解题方案的准确而完整的描述，是一系列解决问题的清晰指令，算法代表着用系统的方法描述解决问题的策略机制。也就是说，能够对一定规范的输入，在有限时间内获得所要求的输出。
 post_meta:
   page:
     date_type: both
@@ -22,11 +22,13 @@ post_meta:
     tags: true
     label: true
   post:
-    date_type: both 
+    date_type: both
     date_format: relative
-    categories: true 
+    categories: true
     tags: true
     label: true
+abbrlink: 17f44e1a
+date: 2023-08-01 12:27:18
 ---
 # 一、动态规划
 

@@ -1,18 +1,17 @@
 ---
 title: 将本地代码提交至github仓库
-date: 2018-01-01 12:50:18
 tags:
-- github仓库
-- github
-- git
-- 本地代码
+  - github仓库
+  - github
+  - git
+  - 本地代码
 categories:
-- github仓库
-- github
+  - github仓库
+  - github
 top_img: /img/githubImage.jpg
 cover: /img/githubImage.jpg
-keywords: "github仓库"
-description: "将本地代码提交至github仓库"
+keywords: github仓库
+description: 将本地代码提交至github仓库
 post_meta:
   page:
     date_type: both
@@ -21,11 +20,13 @@ post_meta:
     tags: true
     label: true
   post:
-    date_type: both 
+    date_type: both
     date_format: relative
-    categories: true 
+    categories: true
     tags: true
     label: true
+abbrlink: ce3886d7
+date: 2018-01-01 12:50:18
 ---
 ## 创建github账号：
 在Github上创建一个账户。如果您已经拥有一个账户，可以跳过此步骤。
