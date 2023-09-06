@@ -9,7 +9,11 @@
       link: https://www.weibo.com/
       avatar: https://i.loli.net/2020/05/14/TLJBum386vcnI1P.png
       descr: 中国最大社交分享平台
-    - name: Twitter
-      link: https://twitter.com/
-      avatar: https://i.loli.net/2020/05/14/5VyHPQqR6LWF39a.png
-      descr: 社交分享平台
+    - name: TechBeat
+      link: https://www.techbeat.net/
+      avatar: /img/techbeat.png
+      descr: 模型训练交流网站
+    - name: LeetCode
+      link: https://leetcode.cn/
+      avatar: /img/leetcode.png
+      descr: 算法题库
