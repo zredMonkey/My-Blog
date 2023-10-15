@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>BigDecimal(double)和BigDecimal(String)的区别</title>
+      <link href="/BigDecimal(double)%E5%92%8CBigDecimal(String)%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+      <url>/BigDecimal(double)%E5%92%8CBigDecimal(String)%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+      
+        <content type="html"><![CDATA[<p>先说答案，BigDecimal(double)和BigDecimal(String)有区别，而且区别很大。</p><p>因为double是不精确的，所以使用一个不精确的数字来创建BigDecimal，得到的数字也不是精确的。如0.1这个数字，double只能表示它的近似值。</p><p>所以，当我们使用BigDecimal(0.1)创建一个BigDecimal的时候，其实创建出来的值并不是正好等于0.1的。</p><p>而是0.1.00000000000055511151231257827021181583404541015625。这是因为double自身表示的只是一个近似值。</p><p>而对于BigDecimal(String)，当我们使用new BigDecimal(“0.1”)创建一个BigDecimal的时候，其实创建出来的值正好就是等于0.1的。</p><p>那么它的标度就是1。</p><h2 id="扩展知识"><a href="#扩展知识" class="headerlink" title="扩展知识"></a>扩展知识</h2><p>在《阿里巴巴Java开发手册》有一条建议，或者要求是说：<br><img src="/img/decimal-wenzhang-1.png" alt="图片"></p><p>未完待续。。。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> BigDecimal(String) </category>
+          
+          <category> BigDecimal(double) </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> BigDecimal(double) </tag>
+            
+            <tag> BigDecimal(String) </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>异步注解（@EnableAsync和@Async）</title>
       <link href="/%E5%BC%82%E6%AD%A5%E6%B3%A8%E8%A7%A3%EF%BC%88@EnableAsync%E5%92%8C@Async%EF%BC%89/"/>
       <url>/%E5%BC%82%E6%AD%A5%E6%B3%A8%E8%A7%A3%EF%BC%88@EnableAsync%E5%92%8C@Async%EF%BC%89/</url>
