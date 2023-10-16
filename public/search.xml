@@ -4,68 +4,6 @@
   
     
     <entry>
-      <title>BigDecimal(double)和BigDecimal(String)的区别</title>
-      <link href="/BigDecimal(double)%E5%92%8CBigDecimal(String)%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
-      <url>/BigDecimal(double)%E5%92%8CBigDecimal(String)%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-      
-        <content type="html"><![CDATA[<p>先说答案，BigDecimal(double)和BigDecimal(String)有区别，而且区别很大。</p><p>因为double是不精确的，所以使用一个不精确的数字来创建BigDecimal，得到的数字也不是精确的。如0.1这个数字，double只能表示它的近似值。</p><p>所以，当我们使用BigDecimal(0.1)创建一个BigDecimal的时候，其实创建出来的值并不是正好等于0.1的。</p><p>而是0.1.00000000000055511151231257827021181583404541015625。这是因为double自身表示的只是一个近似值。</p><p>而对于BigDecimal(String)，当我们使用new BigDecimal(“0.1”)创建一个BigDecimal的时候，其实创建出来的值正好就是等于0.1的。</p><p>那么它的标度就是1。</p><h2 id="扩展知识"><a href="#扩展知识" class="headerlink" title="扩展知识"></a>扩展知识</h2><p>在《阿里巴巴Java开发手册》有一条建议，或者要求是说：<br><img src="/img/decimal-wenzhang-1.png" alt="图片"></p><p>未完待续。。。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> BigDecimal(String) </category>
-          
-          <category> BigDecimal(double) </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> BigDecimal(double) </tag>
-            
-            <tag> BigDecimal(String) </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>异步注解（@EnableAsync和@Async）</title>
-      <link href="/%E5%BC%82%E6%AD%A5%E6%B3%A8%E8%A7%A3%EF%BC%88@EnableAsync%E5%92%8C@Async%EF%BC%89/"/>
-      <url>/%E5%BC%82%E6%AD%A5%E6%B3%A8%E8%A7%A3%EF%BC%88@EnableAsync%E5%92%8C@Async%EF%BC%89/</url>
-      
-        <content type="html"><![CDATA[<h1 id="为什么要使用？"><a href="#为什么要使用？" class="headerlink" title="为什么要使用？"></a>为什么要使用？</h1><p>1.在我们的日常开发中，我们偶尔会遇到在业务层中我们需要同时修改多张表的数据并且需要有序的执行，如果我们用往常的同步的方式，也就是单线程的方式来执行的话，可能会出现执行超时等异常造成请求结果失败，即使成功，前端也需要等待较长时间来获取响应结果，这样不但造成了用户体验差，而且会经常出现请求执行失败的问题。</p><p>2.在解释异步调用之前，我们先来看同步调用的定义；</p><ol><li>同步就是整个处理过程顺序执行，当各个过程都执行完毕，并返回结果。</li><li>异步调用则是只是发送了调用的指令，调用者无需等待被调用的方法完全执行完毕；而是继续执行下面的流程。</li></ol><h1 id="什么时候使用"><a href="#什么时候使用" class="headerlink" title="什么时候使用"></a>什么时候使用</h1><p>1.在某个调用中，需要顺序调用 A, B, C三个过程方法；如他们都是同步调用，则需要将他们都顺序执行完毕之后，才算作过程执行完毕； 如B为一个异步的调用方法，则在执行完A之后，调用B，并不等待B完成，而是执行开始调用C，待C执行完毕之后，就意味着这个过程执行完毕了。</p><p>2.在生成订单的时候给用户发送短信，生成订单的结果不应该被发送短信的成功与否所左右，也就是说生成订单这个主操作是不依赖于发送短信这个操作，所以我们就可以把发送短信这个操作置为异步操作。</p><h1 id="一、基本介绍"><a href="#一、基本介绍" class="headerlink" title="一、基本介绍"></a>一、基本介绍</h1><p>@Async是spring为了方便开发人员进行异步调用的出现的，在方法上加入这个注解，spring会从线程池中获取一个新的线程来执行方法，实现异步调用</p><p>@EnableAsync表示开启对异步任务的支持，可以放在springboot的启动类上，也可以放在自定义线程池的配置类上，具体看下文</p><h1 id="二-最简单的使用"><a href="#二-最简单的使用" class="headerlink" title="二.最简单的使用"></a>二.最简单的使用</h1><p>在springboot项目中，直接在启动类上加上@EnableAsync，然后在service层的方法上对于需要异步调用的方法加上@Async，</p><p>那么当controller层调用这个方法的时候，就会在主线程外自动新建线程执行该方法。</p><p>1.springboot启动类开启异步支持<br><img src="/img/async-1.png" alt="图片"></p><p>2.service层的方法加@Async，如果在类上加该注解表示整个类的方法都异步执行，建议加到具体的某个方法上<br><img src="/img/async-2.png" alt="图片"></p><p>3.controller层调用service层的异步方法，这里用主线程在异步方法前后执行了2次打印输出<br><img src="/img/async-3.png" alt="图片"></p><p>4.调用的结果</p><p>首先看看没有异步执行，正常的顺序执行的结果</p><p>可以看到，按顺序执行，全部是main线程http-nio-8181-exec-124执行，并且service方法的执行结果在中间，如下所示<br><img src="/img/async-4.png" alt="图片"></p><p>由于我们的方法使用了@Async注解，所以主线程http-nio-8181-exec-124不等异步方法完成，先结束了，异步线程task-1继续执行.<br><img src="/img/async-5.png" alt="图片"></p><p><strong>tips：没有自定义线程池@Async默认的线程池是SimpleAsyncTaskExecutor</strong></p><h1 id="三-自定义线程池来使用-Async"><a href="#三-自定义线程池来使用-Async" class="headerlink" title="三.自定义线程池来使用@Async"></a>三.自定义线程池来使用@Async</h1><p>1.新建一个线程池配置类，@EnableAsync在配置类上加，不用在启动类上加也行，可以配置不同的线程池，用bean的name做区分<br><img src="/img/async-6.png" alt="图片"></p><p>2.@Async的使用一样是在service层的方法上加，如果配置了多个线程池，可以用@Async(“name”)，那么表示线程池的@Bean的name，来指定用哪个线程池处理.</p><p>假如只配置了一个线程池，直接用@Async就会用自定义的线程池执行.</p><p>假如配置了多个线程池，用@Async没指定用哪个线程池，会用默认的SimpleAsyncTaskExecutor来处理.<br><img src="/img/async-7.png" alt="图片"></p><p>假如配置了多个线程池，用@Async(“name”)，会用指定的线程池处理</p><p>比如service层方法上指定pool1线程池<br><img src="/img/async-8.png" alt="图片"></p><p>执行结果，异步线程名是pool配置的fzhThread<br><img src="/img/async-9.png" alt="图片"></p><h1 id="四-注解没生效的原因"><a href="#四-注解没生效的原因" class="headerlink" title="四.注解没生效的原因"></a>四.注解没生效的原因</h1><p>1.异步方法使用static修饰</p><p>2.异步方法类没有使用@Service注解（或其他注解）导致spring无法扫描到异步类</p><p>3.controller中需要使用@Autowired或@Resource等注解自动注入service类，不能自己手动new对象</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 异步注解 </category>
-          
-          <category> Async </category>
-          
-          <category> EnableAsync和 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 异步注解 </tag>
-            
-            <tag> EnableAsync </tag>
-            
-            <tag> Async </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>定时任务之@Scheduled注解</title>
       <link href="/%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E4%B9%8B@Scheduled%E6%B3%A8%E8%A7%A3/"/>
       <url>/%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E4%B9%8B@Scheduled%E6%B3%A8%E8%A7%A3/</url>
@@ -132,6 +70,35 @@
     
     
     <entry>
+      <title>BigDecimal(double)和BigDecimal(String)的区别</title>
+      <link href="/BigDecimal(double)%E5%92%8CBigDecimal(String)%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+      <url>/BigDecimal(double)%E5%92%8CBigDecimal(String)%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+      
+        <content type="html"><![CDATA[<p>先说答案，BigDecimal(double)和BigDecimal(String)有区别，而且区别很大。</p><p>因为double是不精确的，所以使用一个不精确的数字来创建BigDecimal，得到的数字也不是精确的。如0.1这个数字，double只能表示它的近似值。</p><p>所以，当我们使用BigDecimal(0.1)创建一个BigDecimal的时候，其实创建出来的值并不是正好等于0.1的。</p><p>而是0.1.00000000000055511151231257827021181583404541015625。这是因为double自身表示的只是一个近似值。</p><p>而对于BigDecimal(String)，当我们使用new BigDecimal(“0.1”)创建一个BigDecimal的时候，其实创建出来的值正好就是等于0.1的。</p><p>那么它的标度就是1。</p><h2 id="扩展知识"><a href="#扩展知识" class="headerlink" title="扩展知识"></a>扩展知识</h2><p>在《阿里巴巴Java开发手册》有一条建议，或者要求是说：<br><img src="/img/decimal-wenzhang-1.png" alt="图片"></p><p><strong>BigDecimal如何精确计数？</strong></p><p>通过BigDecimal的源码，我们可以看到，实际上一个BigDecimal是<strong>一个“无标度值”和一个标度来表示一个数的</strong>。</p><p>在BigDecimal中，标度是通过scale字段来表示的。</p><p>而无标度值的表示比较复杂。当unscale value超过阈值(默认为Long.MAX_VALUE)时采用intVal字段存储unscale value, intCompact字段存储Long.MIN_VALUE,否则对unscale value进行压缩存储到long型的intCompact字段用于后续计算，intVal为空。</p><p>涉及到的字段就是这几个：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">public class BigDecimal extends Number implements Comparable&lt;BigDecimal&gt; &#123;</span><br><span class="line">    /**</span><br><span class="line">     * The unscaled value of this BigDecimal, as returned by &#123;@link</span><br><span class="line">     * #unscaledValue&#125;.</span><br><span class="line">     *</span><br><span class="line">     * @serial</span><br><span class="line">     * @see #unscaledValue</span><br><span class="line">     */</span><br><span class="line">    private final BigInteger intVal;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * The scale of this BigDecimal, as returned by &#123;@link #scale&#125;.</span><br><span class="line">     *</span><br><span class="line">     * @serial</span><br><span class="line">     * @see #scale</span><br><span class="line">     */</span><br><span class="line">    private final int scale;  // Note: this may have any value, so</span><br><span class="line">                              // calculations must be done in longs</span><br><span class="line">    </span><br><span class="line">    /**</span><br><span class="line">     * If the absolute value of the significand of this BigDecimal is</span><br><span class="line">     * less than or equal to &#123;@code Long.MAX_VALUE&#125;, the value can be</span><br><span class="line">     * compactly stored in this field and used in computations.</span><br><span class="line">     */</span><br><span class="line">    private final transient long intCompact;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>那么标度是什么呢？</strong></p><p>除了scale这个字段，在BigDecimal中还提供了scale()方法，用来返回这个BigDecimal的标度。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Returns a &#123;@code BigDecimal&#125; whose scale is the specified</span><br><span class="line"> * value, and whose value is numerically equal to this</span><br><span class="line"> * &#123;@code BigDecimal&#125;&#x27;s.  Throws an &#123;@code ArithmeticException&#125;</span><br><span class="line"> * if this is not possible.</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt;This call is typically used to increase the scale, in which</span><br><span class="line"> * case it is guaranteed that there exists a &#123;@code BigDecimal&#125;</span><br><span class="line"> * of the specified scale and the correct value.  The call can</span><br><span class="line"> * also be used to reduce the scale if the caller knows that the</span><br><span class="line"> * &#123;@code BigDecimal&#125; has sufficiently many zeros at the end of</span><br><span class="line"> * its fractional part (i.e., factors of ten in its integer value)</span><br><span class="line"> * to allow for the rescaling without changing its value.</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt;This method returns the same result as the two-argument</span><br><span class="line"> * versions of &#123;@code setScale&#125;, but saves the caller the trouble</span><br><span class="line"> * of specifying a rounding mode in cases where it is irrelevant.</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt;Note that since &#123;@code BigDecimal&#125; objects are immutable,</span><br><span class="line"> * calls of this method do &lt;i&gt;not&lt;/i&gt; result in the original</span><br><span class="line"> * object being modified, contrary to the usual convention of</span><br><span class="line"> * having methods named &lt;tt&gt;set&lt;i&gt;X&lt;/i&gt;&lt;/tt&gt; mutate field</span><br><span class="line"> * &lt;i&gt;&#123;@code X&#125;&lt;/i&gt;.  Instead, &#123;@code setScale&#125; returns an</span><br><span class="line"> * object with the proper scale; the returned object may or may</span><br><span class="line"> * not be newly allocated.</span><br><span class="line"> *</span><br><span class="line"> * @param  newScale scale of the &#123;@code BigDecimal&#125; value to be returned.</span><br><span class="line"> * @return a &#123;@code BigDecimal&#125; whose scale is the specified value, and</span><br><span class="line"> *         whose unscaled value is determined by multiplying or dividing</span><br><span class="line"> *         this &#123;@code BigDecimal&#125;&#x27;s unscaled value by the appropriate</span><br><span class="line"> *         power of ten to maintain its overall value.</span><br><span class="line"> * @throws ArithmeticException if the specified scaling operation would</span><br><span class="line"> *         require rounding.</span><br><span class="line"> * @see    #setScale(int, int)</span><br><span class="line"> * @see    #setScale(int, RoundingMode)</span><br><span class="line"> */</span><br><span class="line">public BigDecimal setScale(int newScale) &#123;</span><br><span class="line">    return setScale(newScale, ROUND_UNNECESSARY);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>那么scale表示的是什么，上面的注释已经解释了。</p><p><code>如果scale为零或正值，则该值表示这个数字小数点右侧的位数。如果scale为负数，则该数字的无标度值需要乘以10的该负数的绝对值的幂。例如：scale为-3，则这个数需要乘1000，即在末尾有3个0。</code></p><p>如123.123，那么如果使用BIgDecimal表示，那么它的无标度值为123123，它的标度为3。</p><p>而二进制无法表示的0.1，使用BigDecimal就可以表示了，及通过无标度值1和标度值1来表示。</p><p>在BigDecimal中一共有以下4个构造方法：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BigDecimal(int)</span><br><span class="line">BigDecimal(double)</span><br><span class="line">BigDecimal(long)</span><br><span class="line">BigDecimal(String)</span><br></pre></td></tr></table></figure><p>以上4个方法，创建出来的BigDecimal的标度(scale)是不同的。</p><p>其中BigDecimal(int)和BigDecimal(long) 比较简单，因为都是整数，所以他们的标度都是0。</p><p>需要注意的是，用BigDecimal(String)创建对象，new BigDecimal(“0.10000”)和new BigDecimal(“0.1”)这两个数的标度分别是5和1，如果使用BigDecimal的equals方法比较，得到的结果是false。</p><p>想要创建一个精确到0.1的BigDecimal，可以使用以下两种方式：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">BigDecimal decimal1 = new BigDecimal(&quot;0.1&quot;);</span><br><span class="line"></span><br><span class="line">BigDecimal decimal2 = new BigDecimal.valueOf(0.1);</span><br></pre></td></tr></table></figure><p>示例如下：</p><p><img src="/img/decimal-wenzhang-2.png" alt="图片"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> BigDecimal(String) </category>
+          
+          <category> BigDecimal(double) </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> BigDecimal(double) </tag>
+            
+            <tag> BigDecimal(String) </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Explain详解与索引最佳实践</title>
       <link href="/Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"/>
       <url>/Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</url>
@@ -190,6 +157,39 @@
             <tag> OOM </tag>
             
             <tag> 内存溢出 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>异步注解（@EnableAsync和@Async）</title>
+      <link href="/%E5%BC%82%E6%AD%A5%E6%B3%A8%E8%A7%A3%EF%BC%88@EnableAsync%E5%92%8C@Async%EF%BC%89/"/>
+      <url>/%E5%BC%82%E6%AD%A5%E6%B3%A8%E8%A7%A3%EF%BC%88@EnableAsync%E5%92%8C@Async%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h1 id="为什么要使用？"><a href="#为什么要使用？" class="headerlink" title="为什么要使用？"></a>为什么要使用？</h1><p>1.在我们的日常开发中，我们偶尔会遇到在业务层中我们需要同时修改多张表的数据并且需要有序的执行，如果我们用往常的同步的方式，也就是单线程的方式来执行的话，可能会出现执行超时等异常造成请求结果失败，即使成功，前端也需要等待较长时间来获取响应结果，这样不但造成了用户体验差，而且会经常出现请求执行失败的问题。</p><p>2.在解释异步调用之前，我们先来看同步调用的定义；</p><ol><li>同步就是整个处理过程顺序执行，当各个过程都执行完毕，并返回结果。</li><li>异步调用则是只是发送了调用的指令，调用者无需等待被调用的方法完全执行完毕；而是继续执行下面的流程。</li></ol><h1 id="什么时候使用"><a href="#什么时候使用" class="headerlink" title="什么时候使用"></a>什么时候使用</h1><p>1.在某个调用中，需要顺序调用 A, B, C三个过程方法；如他们都是同步调用，则需要将他们都顺序执行完毕之后，才算作过程执行完毕； 如B为一个异步的调用方法，则在执行完A之后，调用B，并不等待B完成，而是执行开始调用C，待C执行完毕之后，就意味着这个过程执行完毕了。</p><p>2.在生成订单的时候给用户发送短信，生成订单的结果不应该被发送短信的成功与否所左右，也就是说生成订单这个主操作是不依赖于发送短信这个操作，所以我们就可以把发送短信这个操作置为异步操作。</p><h1 id="一、基本介绍"><a href="#一、基本介绍" class="headerlink" title="一、基本介绍"></a>一、基本介绍</h1><p>@Async是spring为了方便开发人员进行异步调用的出现的，在方法上加入这个注解，spring会从线程池中获取一个新的线程来执行方法，实现异步调用</p><p>@EnableAsync表示开启对异步任务的支持，可以放在springboot的启动类上，也可以放在自定义线程池的配置类上，具体看下文</p><h1 id="二-最简单的使用"><a href="#二-最简单的使用" class="headerlink" title="二.最简单的使用"></a>二.最简单的使用</h1><p>在springboot项目中，直接在启动类上加上@EnableAsync，然后在service层的方法上对于需要异步调用的方法加上@Async，</p><p>那么当controller层调用这个方法的时候，就会在主线程外自动新建线程执行该方法。</p><p>1.springboot启动类开启异步支持<br><img src="/img/async-1.png" alt="图片"></p><p>2.service层的方法加@Async，如果在类上加该注解表示整个类的方法都异步执行，建议加到具体的某个方法上<br><img src="/img/async-2.png" alt="图片"></p><p>3.controller层调用service层的异步方法，这里用主线程在异步方法前后执行了2次打印输出<br><img src="/img/async-3.png" alt="图片"></p><p>4.调用的结果</p><p>首先看看没有异步执行，正常的顺序执行的结果</p><p>可以看到，按顺序执行，全部是main线程http-nio-8181-exec-124执行，并且service方法的执行结果在中间，如下所示<br><img src="/img/async-4.png" alt="图片"></p><p>由于我们的方法使用了@Async注解，所以主线程http-nio-8181-exec-124不等异步方法完成，先结束了，异步线程task-1继续执行.<br><img src="/img/async-5.png" alt="图片"></p><p><strong>tips：没有自定义线程池@Async默认的线程池是SimpleAsyncTaskExecutor</strong></p><h1 id="三-自定义线程池来使用-Async"><a href="#三-自定义线程池来使用-Async" class="headerlink" title="三.自定义线程池来使用@Async"></a>三.自定义线程池来使用@Async</h1><p>1.新建一个线程池配置类，@EnableAsync在配置类上加，不用在启动类上加也行，可以配置不同的线程池，用bean的name做区分<br><img src="/img/async-6.png" alt="图片"></p><p>2.@Async的使用一样是在service层的方法上加，如果配置了多个线程池，可以用@Async(“name”)，那么表示线程池的@Bean的name，来指定用哪个线程池处理.</p><p>假如只配置了一个线程池，直接用@Async就会用自定义的线程池执行.</p><p>假如配置了多个线程池，用@Async没指定用哪个线程池，会用默认的SimpleAsyncTaskExecutor来处理.<br><img src="/img/async-7.png" alt="图片"></p><p>假如配置了多个线程池，用@Async(“name”)，会用指定的线程池处理</p><p>比如service层方法上指定pool1线程池<br><img src="/img/async-8.png" alt="图片"></p><p>执行结果，异步线程名是pool配置的fzhThread<br><img src="/img/async-9.png" alt="图片"></p><h1 id="四-注解没生效的原因"><a href="#四-注解没生效的原因" class="headerlink" title="四.注解没生效的原因"></a>四.注解没生效的原因</h1><p>1.异步方法使用static修饰</p><p>2.异步方法类没有使用@Service注解（或其他注解）导致spring无法扫描到异步类</p><p>3.controller中需要使用@Autowired或@Resource等注解自动注入service类，不能自己手动new对象</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 异步注解 </category>
+          
+          <category> Async </category>
+          
+          <category> EnableAsync和 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 异步注解 </tag>
+            
+            <tag> EnableAsync </tag>
+            
+            <tag> Async </tag>
             
         </tags>
       
